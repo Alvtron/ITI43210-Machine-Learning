@@ -5,10 +5,11 @@ library(caret)
 set.seed(1)
 
 # Load dataset
-flag.names <- read.csv("C:/Users/thoma/source/repos/ITI43210 Machine Learning/Chapter 2/datasets/flags/flag.names", header = FALSE)$V1
-flag.names
+dataFilePath <- paste(sep = "", getwd(), "/datasets/flags/flag.data")
+namesFilePath <- paste(sep = "", getwd(), "/datasets/flags/flag.names")
 
-flag.data <- read.table("C:/Users/thoma/source/repos/ITI43210 Machine Learning/Chapter 2/datasets/flags/flag.data", sep = ",", header = FALSE, col.names = flag.names)
+flag.names <- read.csv(namesFilePath, header = FALSE)$V1
+flag.data <- read.table(dataFilePath, sep = ",", header = FALSE, col.names = flag.names)
 flag.data <- subset(flag.data, select = -c(name))
 
 dataset <- as.data.frame(flag.data)
