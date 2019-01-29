@@ -1,15 +1,18 @@
+Link to article: http://neuroph.sourceforge.net/tutorials/PredictingPokerhands/Predicting%20poker%20hands%20with%20neural%20networks.htm
+Link to article: https://medium.com/@akashg/predicting-poker-hand-using-neural-networks-83ed7d0bfc6a
+
 1. Title: Poker Hand Dataset 
 
 2. Source Information
 
 a) Creators:
 
-	Robert Cattral (cattral@gmail.com)
+    Robert Cattral (cattral@gmail.com)
 
-	Franz Oppacher (oppacher@scs.carleton.ca)
-	Carleton University, Department of Computer Science
-	Intelligent Systems Research Unit
-	1125 Colonel By Drive, Ottawa, Ontario, Canada, K1S5B6
+    Franz Oppacher (oppacher@scs.carleton.ca)
+    Carleton University, Department of Computer Science
+    Intelligent Systems Research Unit
+    1125 Colonel By Drive, Ottawa, Ontario, Canada, K1S5B6
 
 c) Date of release: Jan 2007
  
@@ -113,7 +116,7 @@ c) Date of release: Jan 2007
 
       Testing set:
 
-	The value inside parenthesis indicates the representation within the test
+    The value inside parenthesis indicates the representation within the test
       set as compared to the entire domain. 1.0 would be perfect representation,
       while <1.0 are under-represented and >1.0 are over-represented.
 

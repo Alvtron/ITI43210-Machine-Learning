@@ -9,7 +9,7 @@
     <Platform Condition="'$(Platform)' == ''">AnyCPU</Platform>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupFile>RandomForest.R</StartupFile>
+    <StartupFile>poker\Cubist.R</StartupFile>
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
