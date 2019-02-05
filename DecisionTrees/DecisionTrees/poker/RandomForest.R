@@ -1,41 +1,34 @@
-library(randomForest)
-library(mlbench)
 library(caret)
+library(randomForest)
 
 set.seed(1)
 
 # Load dataset
-dataFilePath <- paste(sep = "", getwd(), "/datasets/flags/flag.data")
-namesFilePath <- paste(sep = "", getwd(), "/datasets/flags/flag.names")
+poker.names <- read.csv(paste(sep = "", getwd(), "/datasets/poker/poker.names"), header = FALSE)$V1
+dataset.training <- as.data.frame(read.table(paste(sep = "", getwd(), "/datasets/poker/poker.training"), sep = ",", header = FALSE, col.names = poker.names))
+dataset.testing <- as.data.frame(read.table(paste(sep = "", getwd(), "/datasets/poker/poker.testing"), sep = ",", header = FALSE, col.names = poker.names))
+dataset.training$CLASS <- as.factor(dataset.training$CLASS)
+dataset.testing$CLASS <- as.factor(dataset.testing$CLASS)
 
-flag.names <- read.csv(namesFilePath, header = FALSE)$V1
-flag.data <- read.table(dataFilePath, sep = ",", header = FALSE, col.names = flag.names)
-flag.data <- subset(flag.data, select = -c(name))
+# Estimate mtry and ntree
+# predictors <- dataset.training[, - c(11)]
+# classes <- dataset.training[, 11]
+# bestmtry <- tuneRF(predictors, classes, stepFactor = 1.5, improve = 1e-5, ntree = 2000)
+# print(bestmtry)
 
-dataset <- as.data.frame(flag.data)
-
-dataset$religion <- as.factor(dataset$religion)
-
-# Pre-processing
-#trans <- preProcess(dataset, method = c("BoxCox", "center", "scale", "pca"))
-#dataset <- predict(trans, dataset)
-
-# Create model with default paramters and auto mtry tuning
-control <- trainControl(method = "repeatedcv", number = 10, repeats = 3, search = "random")
+# Create model
+control <- trainControl(method = "none")
 print("Training...")
-
-rf_default <- train(religion ~ ., data = dataset, method = "rf", metric = "Accuracy", tuneLength = 10, trControl = control)
-
+rfmodel = train(CLASS ~ ., data = dataset.training, method = "rf", ntree = 1000, metric = "Accuracy", tuneGrid = data.frame(mtry = 9), trControl = control)
 print("Training completed.")
-print(rf_default)
-plot(rf_default)
+print(randomForestModel)
 
-# without pre-processing:
-# mtry = 17
-# Accuracy 0.7057256
-# Kappa 0.6263600
+# Predicting
+print("Predicting...")
+prediction <- predict(rfmodel, dataset.testing, type = "prob")
+print("Prediction completed.")
 
-# with pre-processing:
-# mtry = 9
-# Accuracy 0.5260965  
-# Kappa 0.3797415
+# Measuring Accuracy
+dataset.testing$RFprob <- prediction[, "0"]
+dataset.testing$RFclass <- predict(rfmodel, dataset.testing)
+confusionMatrix(data = dataset.testing$RFclass, reference = dataset.testing$CLASS, positive = "0")
