@@ -1,5 +1,4 @@
 library(caret)
-library(randomForest)
 
 set.seed(1)
 
@@ -11,6 +10,7 @@ dataset.training$CLASS <- as.factor(dataset.training$CLASS)
 dataset.testing$CLASS <- as.factor(dataset.testing$CLASS)
 
 # Estimate mtry and ntree
+# library(randomForest)
 # predictors <- dataset.training[, - c(11)]
 # classes <- dataset.training[, 11]
 # bestmtry <- tuneRF(predictors, classes, stepFactor = 1.5, improve = 1e-5, ntree = 2000)
@@ -21,14 +21,10 @@ control <- trainControl(method = "none")
 print("Training...")
 rfmodel = train(CLASS ~ ., data = dataset.training, method = "rf", ntree = 1000, metric = "Accuracy", tuneGrid = data.frame(mtry = 9), trControl = control)
 print("Training completed.")
-print(randomForestModel)
-
-# Predicting
-print("Predicting...")
-prediction <- predict(rfmodel, dataset.testing, type = "prob")
-print("Prediction completed.")
+print(rfmodel)
 
 # Measuring Accuracy
-dataset.testing$RFprob <- prediction[, "0"]
-dataset.testing$RFclass <- predict(rfmodel, dataset.testing)
-confusionMatrix(data = dataset.testing$RFclass, reference = dataset.testing$CLASS, positive = "0")
+print("Predicting...")
+prediction <- predict(rfmodel, dataset.testing)
+print("Creating confusion matrix...")
+print(confusionMatrix(prediction, dataset.testing$CLASS))
