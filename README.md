@@ -1,5 +1,10 @@
-# ITI43210 Machine Learning
+# ImbalancedMachineLearning
 
+Here we train different machine learning algorithms with R for extreme imbalanced classification.
+
+Course: ITI43210 Machine Learning, Østfold University College
+
+Course description:
 Machine learning is about computers learning through training and experience instead of being explicitely programmed for a given task.The students will get acquainted with several methods and algorithms for machine learning. Based on this, the students should be able to select the methods best suited for the problem in question.
 
 The course should give the students knowledge about the basic properties common to all machine learning methods. Examples include ability to generalise and heuristic search.
