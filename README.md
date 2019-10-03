@@ -1,4 +1,4 @@
-# ImbalancedMachineLearning
+# Imbalanced Machine Learning with R
 
 Here we train different machine learning algorithms with R for extreme imbalanced classification.
 
